@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "projectName": "emb-c-template",
+    "configurations": [
+        {
+            "request": "launch",
+            "type": "cortex-debug",
+            "name": "Jlink debug",
+            "cwd" : "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/bin/emb-c-template",
+            "serverpath": "JLinkGDBServerCL",
+            "serverArgs": [],
+            "servertype": "jlink",
+            "device": "STM32F429ZI",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+        },
+        {
+            "request": "launch",
+            "type": "cortex-debug",
+            "name": "ST-link debug",
+            "cwd" : "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/bin/emb-c-template",
+            "serverArgs": [],
+            "servertype": "stutil",
+            "device": "STM32F429ZI",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+        }
+    ],
+}

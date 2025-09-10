@@ -1,0 +1,8 @@
+{
+    "cortex-debug.gdbPath": "arm-none-eabi-gdb",
+    "cortex-debug.JLinkGDBServerPath": "JLinkGDBServer",
+    "files.associations": {
+        
+    },  
+    "cortex-debug.variableUseNaturalFormat": false,
+}
