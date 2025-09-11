@@ -129,22 +129,27 @@ stats:
 	@echo ''
 
 ################################### Flashing and debugging section #######################################
-$(BIN_PATH)/jflash: $(TARGET).bin
-	@touch $@
-	@echo Device $(DEVICE) > $@
-	@echo si 1'\n'Speed 4000 >> $@
-	@echo loadbin $< 0x08000000 >> $@
-	@echo r'\n'g'\n'qc >> $@
+#$(BIN_PATH)/jflash: $(TARGET).bin
+#	@touch $@
+#	@echo Device $(DEVICE) > $@
+#	@echo si 1'\n'Speed 4000 >> $@
+#	@echo loadbin $< 0x08000000 >> $@
+#	@echo r'\n'g'\n'qc >> $@
 
-flash: $(BIN_PATH)/jflash
+#flash: $(BIN_PATH)/jflash
+#	@echo "Flashing started ...!"
+#	JLinkExe -commanderscript $<
+
+########################################## Flashing with ST-Link #########################################
+flash:
 	@echo "Flashing started ...!"
-	JLinkExe -commanderscript $<
+	@sudo st-flash --reset write $(TARGET).bin 0x08000000
 
 # Use this if you are using JLink: make -j2 debug
-debug: server client
+#debug: server client
 
-client:
-	$(GDB) -ex 'target remote: 2331' $(TARGET) 
+#client:
+#	$(GDB) -ex 'target remote: 2331' $(TARGET) 
 
-server:
-	$(DB) -select USB -device $(DEVICE) -endian-little -if SWD -speed 4000
+#server:
+#	$(DB) -select USB -device $(DEVICE) -endian-little -if SWD -speed 4000
