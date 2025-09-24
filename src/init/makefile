@@ -22,4 +22,4 @@ STUP_PATH = startup
 all:
 	@echo "Building System initilization code...!"
 	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $(MAIN_PATH)/main.c -o $(OBJECTS)/main.o
-	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $(STUP_PATH)/Stm32f429zi_Startup.c -o $(OBJECTS)/Stm32f429zi_Startup.o
+	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $(STUP_PATH)/Stm32f334r8_Startup.c -o $(OBJECTS)/Stm32f334r8_Startup.o

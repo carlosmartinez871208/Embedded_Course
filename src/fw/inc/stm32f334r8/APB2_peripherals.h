@@ -21,8 +21,8 @@
 /* not permitted without express written authority. Offenders will be liable                                         */
 /* for damages.                                                                                                      */
 /*********************************************************************************************************************/
-#ifndef AHB3_PERIPHERALS_H_
-#define AHB3_PERIPHERALS_H_
+#ifndef APB2_PERIPHERALS_H_
+#define APB2_PERIPHERALS_H_
 /*                                                       Includes                                                    */
 /*********************************************************************************************************************/
 #include "bus.h"
@@ -32,39 +32,89 @@
 
 /*                                                      Constants                                                    */
 /*********************************************************************************************************************/
-#ifndef FMC_BANK1_BASE_ADDRESS
- #define FMC_BANK1_OFFSET       (0x0ul)
- #define FMC_BANK1_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK1_OFFSET)
+#ifndef SYS_COMP_OPAMP_BASE_ADDRESS
+ #define SYS_COMP_OPAMP_OFFSET    (0x0ul)
+ #define SYS_COMP_OPAMP_BASE_ADDRESS (APB2_BASE_ADDRESS + SYS_COMP_OPAMP_OFFSET)
 #endif
 
-#ifndef FMC_BANK2_BASE_ADDRESS
- #define FMC_BANK2_OFFSET       (0x10000000ul)
- #define FMC_BANK2_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK2_OFFSET)
+#ifndef EXTI_BASE_ADDRESS
+ #define EXTI_OFFSET              (0x400ul)
+ #define EXTI_BASE_ADDRESS        (APB2_BASE_ADDRESS + EXTI_OFFSET)
 #endif
 
-#ifndef FMC_BANK3_BASE_ADDRESS
- #define FMC_BANK3_OFFSET       (0x20000000ul)
- #define FMC_BANK3_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK3_OFFSET)
+#ifndef TIM1_BASE_ADDRESS
+ #define TIM1_OFFSET              (0x2C00ul)
+ #define TIM1_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM1_OFFSET)
 #endif
 
-#ifndef FMC_BANK4_BASE_ADDRESS
- #define FMC_BANK4_OFFSET       (0x30000000ul)
- #define FMC_BANK4_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK4_OFFSET)
+#ifndef SPI1_BASE_ADDRESS
+ #define SPI1_OFFSET              (0x3000ul)
+ #define SPI1_BASE_ADDRESS        (APB2_BASE_ADDRESS + SPI1_OFFSET)
 #endif
 
-#ifndef FMC_CR_BASE_ADDRESS
- #define FMC_CR_OFFSET          (0x40000000ul)
- #define FMC_CR_BASE_ADDRESS    (AHB3_BASE_ADDRESS + FMC_CR_OFFSET)
+#ifndef USART1_BASE_ADDRESS
+ #define USART1_OFFSET            (0x3800ul)
+ #define USART1_BASE_ADDRESS      (APB2_BASE_ADDRESS + USART1_OFFSET)
 #endif
 
-#ifndef FMC_BANK5_BASE_ADDRESS
- #define FMC_BANK5_OFFSET       (0x60000000ul)
- #define FMC_BANK5_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK5_OFFSET)
+#ifndef TIM15_BASE_ADDRESS
+ #define TIM15_OFFSET              (0x4000ul)
+ #define TIM15_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM15_OFFSET)
 #endif
 
-#ifndef FMC_BANK6_BASE_ADDRESS
- #define FMC_BANK6_OFFSET       (0x70000000ul)
- #define FMC_BANK6_BASE_ADDRESS (AHB3_BASE_ADDRESS + FMC_BANK6_OFFSET)
+#ifndef TIM16_BASE_ADDRESS
+ #define TIM16_OFFSET              (0x4400ul)
+ #define TIM16_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM16_OFFSET)
+#endif
+
+#ifndef TIM17_BASE_ADDRESS
+ #define TIM17_OFFSET              (0x4800ul)
+ #define TIM17_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM17_OFFSET)
+#endif
+
+#ifndef USART6_BASE_ADDRESS
+ #define USART6_OFFSET            (0x1400ul)
+ #define USART6_BASE_ADDRESS      (APB2_BASE_ADDRESS + USART6_OFFSET)
+#endif
+
+#ifndef ADC_BASE_ADDRESS
+ #define ADC_OFFSET               (0x2000ul)
+ #define ADC_BASE_ADDRESS         (APB2_BASE_ADDRESS + ADC_OFFSET)
+#endif
+
+#ifndef SDO_BASE_ADDRESS
+ #define SDO_OFFSET               (0x2C00ul)
+ #define SDO_BASE_ADDRESS         (APB2_BASE_ADDRESS + SDO_OFFSET)
+#endif
+
+#ifndef SPI4_BASE_ADDRESS
+ #define SPI4_OFFSET              (0x3400ul)
+ #define SPI4_BASE_ADDRESS        (APB2_BASE_ADDRESS + SPI4_OFFSET)
+#endif
+
+#ifndef SYSCFG_BASE_ADDRESS
+ #define SYSCFG_OFFSET            (0x3800ul)
+ #define SYSCFG_BASE_ADDRESS      (APB2_BASE_ADDRESS + SYSCFG_OFFSET)
+#endif
+
+#ifndef TIM9_BASE_ADDRESS
+ #define TIM9_OFFSET              (0x4000ul)
+ #define TIM9_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM9_OFFSET)
+#endif
+
+#ifndef TIM10_BASE_ADDRESS
+ #define TIM10_OFFSET             (0x4400ul)
+ #define TIM10_BASE_ADDRESS       (APB2_BASE_ADDRESS + TIM10_OFFSET)
+#endif
+
+#ifndef TIM11_BASE_ADDRESS
+ #define TIM11_OFFSET              (0x4800ul)
+ #define TIM11_BASE_ADDRESS        (APB2_BASE_ADDRESS + TIM11_OFFSET)
+#endif
+
+#ifndef HRTIM1_BASE_ADDRESS
+ #define HRTIM1_OFFSET            (0x7400ul)
+ #define HRTIM1_BASE_ADDRESS      (APB2_BASE_ADDRESS + HRTIM1_OFFSET)
 #endif
 
 /*                                                 Exported Variables                                                */

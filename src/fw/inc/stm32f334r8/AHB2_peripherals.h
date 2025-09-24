@@ -32,21 +32,30 @@
 
 /*                                                      Constants                                                    */
 /*********************************************************************************************************************/
-#ifndef USB_OTG_FS_BASE_ADDRESS
- #define USB_OTG_FS_OFFSET       (0x0ul)
- #define USB_OTG_FS_BASE_ADDRESS (AHB2_BASE_ADDRESS + USB_OTG_FS_OFFSET)
+#ifndef GPIOA_BASE_ADDRESS
+ #define GPIOA_OFFSET             (0x00000ul)
+ #define GPIOA_BASE_ADDRESS       (AHB2_BASE_ADDRESS + GPIOA_OFFSET)
 #endif
 
-#ifndef DCMI_BASE_ADDRESS
- #define DCMI_OFFSET             (0x50000ul)
- #define DCMI_BASE_ADDRESS       (AHB2_BASE_ADDRESS + DCMI_OFFSET)
+#ifndef GPIOB_BASE_ADDRESS
+ #define GPIOB_OFFSET             (0x00400ul)
+ #define GPIOB_BASE_ADDRESS       (AHB2_BASE_ADDRESS + GPIOB_OFFSET)
 #endif
 
-#ifndef RNG_BASE_ADDRESS
- #define RNG_OFFSET              (0x60800ul)
- #define RNG_BASE_ADDRESS        (AHB2_BASE_ADDRESS + RNG_OFFSET)
+#ifndef GPIOC_BASE_ADDRESS
+ #define GPIOC_OFFSET             (0x00800ul)
+ #define GPIOC_BASE_ADDRESS       (AHB2_BASE_ADDRESS + GPIOC_OFFSET)
 #endif
 
+#ifndef GPIOD_BASE_ADDRESS
+ #define GPIOD_OFFSET             (0x00C00ul)
+ #define GPIOD_BASE_ADDRESS       (AHB2_BASE_ADDRESS + GPIOD_OFFSET)
+#endif
+
+#ifndef GPIOF_BASE_ADDRESS
+ #define GPIOF_OFFSET             (0x01400ul)
+ #define GPIOF_BASE_ADDRESS       (AHB2_BASE_ADDRESS + GPIOF_OFFSET)
+#endif
 /*                                                 Exported Variables                                                */
 /*********************************************************************************************************************/
 

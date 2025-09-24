@@ -11,8 +11,8 @@ ENTRY(Reset_Handler)
 /* Memory definitions: */
 MEMORY
 {
-    FLASH (rx): ORIGIN = 0x08000000, LENGTH = 512K
-    SRAM (rwx): ORIGIN = 0x20000000, LENGTH = 112K
+    FLASH (rx): ORIGIN = 0x08000000, LENGTH = 64K
+    SRAM (rwx): ORIGIN = 0x20000000, LENGTH = 12K
 }
 
 /* From vector table (Reference manual page 202) 

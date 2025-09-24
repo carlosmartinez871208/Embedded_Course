@@ -25,10 +25,10 @@ OBJ_PATH = obj
 LOG_PATH = report
 
 # Microcontroller name
-DEVICE = STM32F429ZI
+DEVICE = STM32F334R8
 
 # Linker script file.
-LINKER_SCRIP = ../src/init/linker/Stm32f429zi_Ls.ld
+LINKER_SCRIP = ../src/init/linker/Stm32f334r8_Ls.ld
 
 # Target name:
 TARGET = $(BIN_PATH)/$(PROJECT)
