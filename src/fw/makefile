@@ -1,15 +1,15 @@
 #Firmware build
 SRC_DIR := src
-OBJ_DIR  = ../../../build/obj
+OBJ_DIR  = ../../build/obj
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SOURCES))
 
 INCLUDES =\
 -Iinc\
--Iinc/stm32f429zi\
--I../../inc/generic/\
--I../../inc/autosar/\
+-Iinc/stm32f334r8\
+-I../../inc/generic\
+-I../../inc/autosar\
 
 # Microcontroller Processor Architecture:
 MACH = cortex-m4

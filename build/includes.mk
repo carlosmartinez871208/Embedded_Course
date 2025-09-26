@@ -2,6 +2,6 @@
 INC_PATH =\
 -I../inc/autosar\
 -I../inc/generic\
--I../src/fw/inc/\
--I../src/fw/inc/stm32f429zi\
+-I../src/fw/inc\
+-I../src/fw/inc/stm32f334r8\
 

@@ -4,14 +4,14 @@
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: Data_Types.h
+ * $File: template.h
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
  */
 /*********************************************************************************************************************/
 /* DESCRIPTION :                                                                                                     */
-/* Data_Types.h:
+/* template.h:
                Use this template for your source code files.
  */
 /*********************************************************************************************************************/
@@ -21,80 +21,42 @@
 /* not permitted without express written authority. Offenders will be liable                                         */
 /* for damages.                                                                                                      */
 /*********************************************************************************************************************/
-#ifndef DATA_TYPES_H_
-#define DATA_TYPES_H_
+#ifndef RCC_H_
+#define RCC_H_
 /*                                                 Standard libraries                                                */
 /*********************************************************************************************************************/
+#include "Data_Types.h"
+#include "peripherals.h"
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
-/* Unsigned types: */
-/* 32 bits data type. */
-#ifndef uint32_t
- typedef unsigned long  uint32_t;
-#endif
-/* 16 bits data type. */
-#ifndef uint16_t
- typedef unsigned short uint16_t;
-#endif
-/* 8 bits data type. */
-#ifndef uint8_t
- typedef unsigned char  uint8_t;
-#endif
-
-/* Signed types: */
-/* 32 bits data type. */
-#ifndef sint32_t
- typedef signed long  sint32_t;
-#endif
-/* 16 bits data type. */
-#ifndef sint16_t
- typedef signed short sint16_t;
-#endif
-/* 8 bits data type. */
-#ifndef sint8_t
- typedef signed char  sint8_t;
-#endif
-
-/* Bool (boolean) type: */
-#ifndef bool
- typedef uint8_t bool;
-#endif
-
-/* Function pointer type definition, points a void function type. */
-#ifndef func_ptr
- typedef void(*func_ptr)(void);
-#endif
-
-/* IO definitions */
-/* Defines read only permissions. */
-#define __I  volatile const
-/* Defines write only permissions. */
-#define __O  volatile
-/* Defines read / write permissions. */
-#define __IO volatile
+typedef struct
+{
+    __IO uint32_t CR;        /* Clock control register */
+    __IO uint32_t CFGR;      /* Clock configuration register */
+    __IO uint32_t CIR;       /* Clock interrupt register */
+    __IO uint32_t APB2RSTR;  /* APB2 peripheral reset register */
+    __IO uint32_t APB1RSTR;  /* APB1 peripheral reset register */
+    __IO uint32_t AHBENR;    /* AHB peripheral clock enable register */
+    __IO uint32_t APB2ENR;   /* APB2 peripheral clock enable register */
+    __IO uint32_t APB1ENR;   /* APB1 peripheral clock enable register */
+    __IO uint32_t BDCR;      /* Backup domain control register */
+    __IO uint32_t CSR;       /* Control/status register */
+    __IO uint32_t AHBRSTR;   /* AHB peripheral reset register */
+    __IO uint32_t CFGR2;     /* Clock configuration register 2 */
+    __IO uint32_t CFGR3;     /* Clock configuration register 3 */
+}RCC_TypeDef;
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
-#ifndef TRUE
- #define TRUE            (bool)1ul
+#ifndef RCC_TYPE
+#define RCC_TYPE ((RCC_TypeDef*)RCC_BASE_ADDRESS)
 #endif
 
-#ifndef FALSE
- #define FALSE           (bool)0ul
-#endif
-
-/* NULL pointer type definition. */
-#ifndef NULL
- #define NULL (void*)(0u)
-#endif 
-
-#ifndef EXIT_SUCCESS
- #define EXIT_SUCCESS FALSE;
-#endif
+#define RCC_AHBENR_GPIOA_ENABLE (1U<<17)
 
 /*                                                 Exported Constants                                                */
 /*********************************************************************************************************************/
@@ -104,6 +66,8 @@
 
 /*                                            Exported functions prototypes                                          */
 /*********************************************************************************************************************/
+extern void RCC_EnableGPIOA(void);
+extern void RCC_DisableGPIOA(void);
 
 /*********************************************************************************************************************/
 #endif
