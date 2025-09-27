@@ -19,12 +19,15 @@ CFLAGS = -c -mcpu=$(MACH) -mthumb -std=gnu11 -g
 # Compiler variables:
 CC = arm-none-eabi-gcc
 
-.PHONY: all
+.PHONY: all entry
 
-all: $(OBJECTS)
+all: entry $(OBJECTS)
+
+entry:
+	@echo "Building Firmware...!"
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@echo "Building Firmware...!"
+	@echo "Building $< ..."
 	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $< -o $@
 
 .PHONY: all
