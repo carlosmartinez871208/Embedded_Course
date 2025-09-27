@@ -115,7 +115,7 @@ post_build:
 
 pre_build:
 	@echo $(PROJECT)
-	@echo "Build date: "$(shell gdate '+%Y-%m-%d %H:%M:%S')
+	@echo "Build date: "$(shell date '+%Y-%m-%d %H:%M:%S')
 	@echo ''
 	@echo "Building started...!"
 
