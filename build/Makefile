@@ -75,7 +75,7 @@ all: clean
 	@mkdir -p $(BIN_PATH)
 	@mkdir -p $(LOG_PATH)
 	@mkdir -p $(OBJ_PATH)
-	@d=$$(gdate +%s); $(MAKE) "build" $(LOG_CMD) && echo "Building time: $$(gdate --utc --date=@$$(($$(gdate +%s)-d)) '+%H:%M:%S')" $(LOG_CMD)
+	@d=$$(date +%s); $(MAKE) "build" $(LOG_CMD) && echo "Building time: $$(date --utc --date=@$$(($$(date +%s)-d)) '+%H:%M:%S')" $(LOG_CMD)
 
 asw:
 	@echo ''
@@ -143,7 +143,7 @@ stats:
 ########################################## Flashing with ST-Link #########################################
 flash:
 	@echo "Flashing started ...!"
-	@sudo st-flash --reset write $(TARGET).bin 0x08000000
+	@st-flash.exe --reset write $(TARGET).bin 0x08000000
 
 # Use this if you are using JLink: make -j2 debug
 #debug: server client
