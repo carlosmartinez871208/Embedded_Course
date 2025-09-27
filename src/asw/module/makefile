@@ -18,10 +18,15 @@ CFLAGS = -c -mcpu=$(MACH) -mthumb -std=gnu11 -g
 # Compiler variables:
 CC = arm-none-eabi-gcc
 
-all: $(OBJECTS)
+.PHONY: all entry
+
+all: entry $(OBJECTS)
+
+entry:
+	@echo "Building Module...!"
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@echo "Building module...!"
+	@echo "  Compiling: $< ..."
 	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $< -o $@
 
 .PHONY: all
