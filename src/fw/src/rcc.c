@@ -4,7 +4,7 @@
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: main.c
+ * $File: template.c
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
@@ -27,8 +27,7 @@
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "fw.h"
-#include "main.h"
+#include "rcc.h"
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
@@ -53,17 +52,9 @@
 
 /*                                         Imported functions implementation                                         */
 /*********************************************************************************************************************/
-int main (void)
+void RCC_EnableGPIO(const uint32_t GPIO_EN)
 {
-    /* Enable GPIOG peripheral */
-    RCC_EnableGPIO(RCC_AHB1ENR_GPIOG_EN);
-    PORTG_InitPinMode(PORTG_PIN13_MODE_OUTPUT);
-    while(TRUE)
-    {
-        PORTG_TogglePin(PORTG_PIN13);
-        for (volatile uint32_t i = 0; i < 1000000; i++);
-    }
-    return EXIT_SUCCESS;
+    RCC->ahb1enr |= GPIO_EN;
 }
 
 /***************************************************Project Logs*******************************************************

@@ -13,6 +13,8 @@ INCLUDES =\
 -Iinc\
 -I../../inc/generic/\
 -I../../inc/autosar/\
+-I../fw/inc\
+-I../fw/inc/Stm32f429zi\
 
 MAIN_PATH = main
 STUP_PATH = startup

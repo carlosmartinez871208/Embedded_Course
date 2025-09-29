@@ -1,17 +1,17 @@
 /*********************************************************************************************************************/
-/*                                                  SOURCE GROUP                                                     */
+/*                                                  HEADER GROUP                                                     */
 /*********************************************************************************************************************/
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: main.c
+ * $File: template.h
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
  */
 /*********************************************************************************************************************/
 /* DESCRIPTION :                                                                                                     */
-/* template.c:
+/* template.h:
                Use this template for your source code files.
  */
 /*********************************************************************************************************************/
@@ -21,51 +21,60 @@
 /* not permitted without express written authority. Offenders will be liable                                         */
 /* for damages.                                                                                                      */
 /*********************************************************************************************************************/
-
+#ifndef GPIO_H_
+#define GPIO_H_
 /*                                                 Standard libraries                                                */
 /*********************************************************************************************************************/
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "fw.h"
-#include "main.h"
+#include "Data_Types.h"
+#include "peripherals.h"
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
+typedef struct
+{
+    __IO uint32_t moder;
+    __IO uint32_t otyper;
+    __IO uint32_t ospeedr;
+    __IO uint32_t pupdr;
+    __IO uint32_t idr;
+    __IO uint32_t odr;
+    __IO uint32_t bsrr;
+    __IO uint32_t lckr;
+    __IO uint32_t afrl;
+    __IO uint32_t afrh;
+}GPIO_TypeDef;
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
+#define GPIOG                           ((GPIO_TypeDef *) GPIOG_BASE_ADDRESS)
 
-/*                                                      Constants                                                    */
+/* Green LED is connected to GPIOG pin 13 */
+/* Pin 13 configuration bits: */
+#define GPIO_MODER_PIN_13_1            ((uint32_t) (1 << 27))
+#define GPIO_MODER_PIN_13_0            ((uint32_t) (1 << 26))
+/* Configure GPIOG pin 13 as output: */
+#define PORTG_PIN13_MODE_OUTPUT        ((uint32_t) (GPIO_MODER_PIN_13_0))
+/* Pin13 output bits: */
+#define GPIO_ODR_PIN_13                ((uint32_t) (1 << 13))
+/* Define PORTG_PIN13  */
+#define PORTG_PIN13                    GPIO_ODR_PIN_13
+
+/*                                                 Exported Constants                                                */
 /*********************************************************************************************************************/
 
-/*                                                   Local Variables                                                 */
+/*                                                 Exported Variables                                                */
 /*********************************************************************************************************************/
 
-/*                                                 Imported Variables                                                */
+/*                                            Exported functions prototypes                                          */
 /*********************************************************************************************************************/
+extern void PORTG_InitPinMode   (const uint32_t PIN_MODE);
+extern void PORTG_TogglePin     (const uint32_t PIN);
 
-/*                                             Local functions prototypes                                            */
 /*********************************************************************************************************************/
-
-/*                                           Local functions implementation                                          */
-/*********************************************************************************************************************/
-
-/*                                         Imported functions implementation                                         */
-/*********************************************************************************************************************/
-int main (void)
-{
-    /* Enable GPIOG peripheral */
-    RCC_EnableGPIO(RCC_AHB1ENR_GPIOG_EN);
-    PORTG_InitPinMode(PORTG_PIN13_MODE_OUTPUT);
-    while(TRUE)
-    {
-        PORTG_TogglePin(PORTG_PIN13);
-        for (volatile uint32_t i = 0; i < 1000000; i++);
-    }
-    return EXIT_SUCCESS;
-}
-
+#endif
 /***************************************************Project Logs*******************************************************
  *|    ID   |     Ticket    |     Date    |                               Description                                 |
  *|---------|---------------|-------------|---------------------------------------------------------------------------|

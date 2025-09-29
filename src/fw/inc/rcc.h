@@ -1,17 +1,17 @@
 /*********************************************************************************************************************/
-/*                                                  SOURCE GROUP                                                     */
+/*                                                  HEADER GROUP                                                     */
 /*********************************************************************************************************************/
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: main.c
+ * $File: template.h
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
  */
 /*********************************************************************************************************************/
 /* DESCRIPTION :                                                                                                     */
-/* template.c:
+/* template.h:
                Use this template for your source code files.
  */
 /*********************************************************************************************************************/
@@ -21,51 +21,76 @@
 /* not permitted without express written authority. Offenders will be liable                                         */
 /* for damages.                                                                                                      */
 /*********************************************************************************************************************/
-
+#ifndef RCC_H_
+#define RCC_H_
 /*                                                 Standard libraries                                                */
 /*********************************************************************************************************************/
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "fw.h"
-#include "main.h"
+#include "Data_Types.h"
+#include "peripherals.h"
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
+typedef struct
+{
+    __IO uint32_t cr;
+    __IO uint32_t pllcfgr;
+    __IO uint32_t cfgr;
+    __IO uint32_t cir;
+    __IO uint32_t ahb1rstr;
+    __IO uint32_t ahb2rstr;
+    __IO uint32_t ahb3rstr;
+    __IO uint32_t dummy0;
+    __IO uint32_t apb1rstr;
+    __IO uint32_t apb2rstr;
+    __IO uint32_t dummy1;
+    __IO uint32_t dummy2;
+    __IO uint32_t ahb1enr;
+    __IO uint32_t ahb2enr;
+    __IO uint32_t ahb3enr;
+    __IO uint32_t dummy3;
+    __IO uint32_t apb1enr;
+    __IO uint32_t apb2enr;
+    __IO uint32_t dummy4;
+    __IO uint32_t dummy5;
+    __IO uint32_t ahb1lpenr;
+    __IO uint32_t ahb2lpenr;
+    __IO uint32_t ahb3lpenr;
+    __IO uint32_t dummy6;
+    __IO uint32_t apb1lpenr;
+    __IO uint32_t apb2lpenr;
+    __IO uint32_t dummy7;
+    __IO uint32_t dummy8;
+    __IO uint32_t bdcr;
+    __IO uint32_t csr;
+    __IO uint32_t dummy9;
+    __IO uint32_t dumm10;
+    __IO uint32_t sscgr;
+    __IO uint32_t plli2scfgr;
+    __IO uint32_t pllsaicfgr;
+    __IO uint32_t dckcfgr;
+}RCC_TypeDef;
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
+#define RCC                             ((RCC_TypeDef *) RCC_BASE_ADDRESS)
+/* Green LED is connected to GPIOG pin 13 */
+#define RCC_AHB1ENR_GPIOG_EN            ((uint32_t) (1 << 6))
 
-/*                                                      Constants                                                    */
+/*                                                 Exported Constants                                                */
 /*********************************************************************************************************************/
 
-/*                                                   Local Variables                                                 */
+/*                                                 Exported Variables                                                */
 /*********************************************************************************************************************/
 
-/*                                                 Imported Variables                                                */
+/*                                            Exported functions prototypes                                          */
 /*********************************************************************************************************************/
+extern void RCC_EnableGPIO(const uint32_t GPIO_EN);
 
-/*                                             Local functions prototypes                                            */
 /*********************************************************************************************************************/
-
-/*                                           Local functions implementation                                          */
-/*********************************************************************************************************************/
-
-/*                                         Imported functions implementation                                         */
-/*********************************************************************************************************************/
-int main (void)
-{
-    /* Enable GPIOG peripheral */
-    RCC_EnableGPIO(RCC_AHB1ENR_GPIOG_EN);
-    PORTG_InitPinMode(PORTG_PIN13_MODE_OUTPUT);
-    while(TRUE)
-    {
-        PORTG_TogglePin(PORTG_PIN13);
-        for (volatile uint32_t i = 0; i < 1000000; i++);
-    }
-    return EXIT_SUCCESS;
-}
-
+#endif
 /***************************************************Project Logs*******************************************************
  *|    ID   |     Ticket    |     Date    |                               Description                                 |
  *|---------|---------------|-------------|---------------------------------------------------------------------------|
