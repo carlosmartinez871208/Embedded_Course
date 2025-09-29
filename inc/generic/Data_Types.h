@@ -80,11 +80,11 @@
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
 #ifndef TRUE
- #define TRUE            (bool)1ul;
+ #define TRUE            (bool)1ul
 #endif
 
 #ifndef FALSE
- #define FALSE           (bool)0ul;
+ #define FALSE           (bool)0ul
 #endif
 
 /* NULL pointer type definition. */
