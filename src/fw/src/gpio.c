@@ -52,17 +52,67 @@
 
 /*                                         Imported functions implementation                                         */
 /*********************************************************************************************************************/
-void PORTG_InitPinMode   (const uint32_t PIN_MODE)
+void Port_ConfigurePin     (const Pin_ConfigType* PinConfig)
 {
-    /* Clear pin mode bits */
-    GPIOG->moder &= ~(GPIO_MODER_PIN_13_1 | GPIO_MODER_PIN_13_0);
-    /* Set pin mode */
-    GPIOG->moder |= PIN_MODE;
+    GPIO_TypeDef* GPIOx = GPIO_Base[PinConfig->Port];
+    uint8_t pin = PinConfig->Pin;
+
+    /* Check if GPIO clock is enabled: */
+    if(!(RCC->ahb1enr & RCC_GPIO_Clk_Enable[PinConfig->Port])) {
+        /* GPIO clock is disabled, enable it: */
+        RCC->ahb1enr |= RCC_GPIO_Clk_Enable[PinConfig->Port];
+    }
+    else
+    {/* GPIO clock is enabled, do nothing */}
+    /* Configure Pin Mode: */
+    GPIOx->moder  = REG_MASKING(GPIOx->moder,   GPIO_2Bit_control[pin][0]); /* Clear mode bits */
+    if(INPUT!=PinConfig->Mode) /* If not input mode */
+    {
+        GPIOx->moder  = REG_ENABLE_BITS(GPIOx->moder, GPIO_2Bit_control[pin][PinConfig->Mode]); /* Set mode bits */
+    }
+    /* Configure Output Type: */
+    if(OUTPUT==PinConfig->Mode || ALTERNATE==PinConfig->Mode)
+    {
+        GPIOx->otyper = REG_MASKING(GPIOx->otyper, GPIO_1Bit_control[pin][0]); /* Clear output type bit */
+        if(PUSH_PULL!=PinConfig->OutputType) /* If not push-pull */
+        {
+            GPIOx->otyper = REG_ENABLE_BITS(GPIOx->otyper, GPIO_1Bit_control[pin][1]); /* Set output type bit */
+        }
+        /* Configure Speed: */
+        GPIOx->ospeedr = REG_MASKING(GPIOx->ospeedr, GPIO_2Bit_control[pin][0]); /* Clear speed bits */
+        if(LOW_SPEED!=PinConfig->OutputSpeed) /* If not low speed */
+        {
+            GPIOx->ospeedr = REG_ENABLE_BITS(GPIOx->ospeedr, GPIO_2Bit_control[pin][PinConfig->OutputSpeed]); /* Set speed bits */
+        }
+        /* Configure Pull-up/Pull-down: */
+        GPIOx->pupdr = REG_MASKING(GPIOx->pupdr, GPIO_2Bit_control[pin][0]); /* Clear pull-up/pull-down bits */
+        if(NO_PULL!=PinConfig->PullUpDown) /* If not pull-up */
+        {
+            GPIOx->pupdr = REG_ENABLE_BITS(GPIOx->pupdr, GPIO_2Bit_control[pin][PinConfig->PullUpDown]); /* Set pull-up/pull-down bits */
+        }
+        /* Configure Alternate Function: */
+        if(ALTERNATE==PinConfig->Mode)
+        {
+            if(pin < 8)
+            {
+                GPIOx->afrl = REG_MASKING(GPIOx->afrl, GPIO_4Bit_control[pin][0]); /* Clear alternate function bits */
+                GPIOx->afrl = REG_ENABLE_BITS(GPIOx->afrl, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+            }
+            else
+            {
+                GPIOx->afrh = REG_MASKING(GPIOx->afrh, GPIO_4Bit_control[pin][0]); /* Clear alternate function bits */
+                GPIOx->afrh = REG_ENABLE_BITS(GPIOx->afrh, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+            }
+        }
+    }
 }
 
-void PORTG_TogglePin (const uint32_t PIN)
+void    Port_TooglePin        (const Pin_ConfigType* PinConfig)
 {
-    GPIOG->odr ^= PIN;
+    GPIO_TypeDef* GPIOx = GPIO_Base[PinConfig->Port];
+    uint8_t pin = PinConfig->Pin;
+    /* Toggle the output data register */
+    GPIOx->odr ^= GPIO_1Bit_control[pin][1];
 }
 
 /***************************************************Project Logs*******************************************************

@@ -55,13 +55,18 @@
 /*********************************************************************************************************************/
 int main (void)
 {
-    /* Enable GPIOG peripheral */
-    RCC_EnableGPIO(RCC_AHB1ENR_GPIOG_EN);
-    PORTG_InitPinMode(PORTG_PIN13_MODE_OUTPUT);
+    /* Configuring Green LED (PG13) */
+    Pin_ConfigType GreenLed   = {.Port = PORTG,.Pin = PIN13,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
+    Pin_ConfigType RedLed     = {.Port = PORTG,.Pin = PIN14,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
+    Pin_ConfigType PushButton = {.Port = PORTA,.Pin = PIN0,.Mode = INPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
+    Port_ConfigurePin(&GreenLed);
+    Port_ConfigurePin(&RedLed);
     while(TRUE)
     {
-        PORTG_TogglePin(PORTG_PIN13);
-        for (volatile uint32_t i = 0; i < 1000000; i++);
+        /* Toggle Green LED */
+        Port_TooglePin(&GreenLed);
+        for(uint32_t i=0; i<1000000; i++); /* Delay */
+        Port_TooglePin(&RedLed);
     }
     return EXIT_SUCCESS;
 }

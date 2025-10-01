@@ -29,5 +29,3 @@ entry:
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@echo "Building $< ..."
 	$(CC) $(CFLAGS) $(WARNS) $(INCLUDES) $< -o $@
-
-.PHONY: all

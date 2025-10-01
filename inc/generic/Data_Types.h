@@ -59,9 +59,41 @@
  typedef signed char  sint8_t;
 #endif
 
+/* AUTOSAR Types: */
+/* Unsigned types: */
+/* 32 bits data type. */
+#ifndef uint32
+ typedef uint32_t  uint32;
+#endif
+/* 16 bits data type. */
+#ifndef uint16
+ typedef uint16_t  uint16;
+#endif
+/* 8 bits data type. */
+#ifndef uint8
+ typedef uint8_t  uint8;
+#endif
+
+/* Signed types: */
+/* 32 bits data type. */
+#ifndef sint32
+ typedef sint32_t  sint32;
+#endif
+/* 16 bits data type. */
+#ifndef sint16
+ typedef sint16_t  sint16;
+#endif
+/* 8 bits data type. */
+#ifndef sint8
+ typedef sint8_t  sint8;
+#endif
+
 /* Bool (boolean) type: */
-#ifndef bool
- typedef uint8_t bool;
+#ifndef STD_TYPES_BOOLEAN_DEFINED
+#ifndef boolean
+typedef uint8 boolean;
+#endif
+#define STD_TYPES_BOOLEAN_DEFINED
 #endif
 
 /* Function pointer type definition, points a void function type. */
@@ -80,17 +112,16 @@
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
 #ifndef TRUE
- #define TRUE            (bool)1ul
+#define TRUE    ((boolean)1u)
 #endif
-
 #ifndef FALSE
- #define FALSE           (bool)0ul
+#define FALSE   ((boolean)0u)
 #endif
 
 /* NULL pointer type definition. */
-#ifndef NULL
- #define NULL (void*)(0u)
-#endif 
+#ifndef NULL_PTR
+#define NULL_PTR ((void*)0)
+#endif
 
 #ifndef EXIT_SUCCESS
  #define EXIT_SUCCESS FALSE;
