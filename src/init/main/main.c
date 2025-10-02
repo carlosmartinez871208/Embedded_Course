@@ -35,6 +35,9 @@
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
+#define GREEN_LED   ((Pin_ConfigType){.Port = PORTG,.Pin = PIN13,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
+#define RED_LED     ((Pin_ConfigType){.Port = PORTG,.Pin = PIN14,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
+#define PUSH_BUTTON ((Pin_ConfigType){.Port = PORTA,.Pin = PIN0, .Mode = INPUT, .OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
 
 /*                                                      Constants                                                    */
 /*********************************************************************************************************************/
@@ -55,18 +58,19 @@
 /*********************************************************************************************************************/
 int main (void)
 {
-    /* Configuring Green LED (PG13) */
-    Pin_ConfigType GreenLed   = {.Port = PORTG,.Pin = PIN13,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
-    Pin_ConfigType RedLed     = {.Port = PORTG,.Pin = PIN14,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
-    Pin_ConfigType PushButton = {.Port = PORTA,.Pin = PIN0,.Mode = INPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0};
-    Port_ConfigurePin(&GreenLed);
-    Port_ConfigurePin(&RedLed);
+    Port_Init(&((Port_ConfigType){.PinConfigList = (Pin_ConfigType[]){GREEN_LED,RED_LED,PUSH_BUTTON},.NumberOfPins = 3}));
     while(TRUE)
     {
-        /* Toggle Green LED */
-        Port_TooglePin(&GreenLed);
-        for(uint32_t i=0; i<1000000; i++); /* Delay */
-        Port_TooglePin(&RedLed);
+        if (!Port_GetPinState(&PUSH_BUTTON))
+        {
+            Port_SetPinState(&GREEN_LED,STD_HIGH);
+            Port_SetPinState(&RED_LED,STD_LOW);
+        }
+        else
+        {
+            Port_SetPinState(&GREEN_LED,STD_LOW);
+            Port_SetPinState(&RED_LED,STD_HIGH);
+        }
     }
     return EXIT_SUCCESS;
 }

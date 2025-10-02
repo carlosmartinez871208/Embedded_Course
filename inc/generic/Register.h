@@ -51,7 +51,7 @@
 #endif
 
 #ifndef REG_COMPARER
-#define REG_COMPARER(value)                                 ((!value)?(uint8_t)0u:(uint8_t)1u)
+#define REG_COMPARER(value)                                 (!(value)?(boolean)FALSE:(boolean)TRUE)
 #endif
 
 /*                                                 Exported Constants                                                */

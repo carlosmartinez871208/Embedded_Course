@@ -60,6 +60,13 @@ typedef struct
     uint8_t Alternate;  /* Pin alternate function mode */
 }Pin_ConfigType;
 
+typedef struct
+{
+    const    Pin_ConfigType* PinConfigList;
+    uint8_t  NumberOfPins;
+}Port_ConfigType;
+
+
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
 #define PORTA                           ((uint8_t)0u)
@@ -259,11 +266,11 @@ static const uint32_t GPIO_4Bit_control[8][16] = {
 
 /*                                            Exported functions prototypes                                          */
 /*********************************************************************************************************************/
-extern void    Port_ConfigurePin     (const Pin_ConfigType* PinConfig);
-extern void    Port_TooglePin        (const Pin_ConfigType* PinConfig);
-extern void    Port_SetPin           (const Pin_ConfigType* PinConfig);
-extern void    Port_ResetPin         (const Pin_ConfigType* PinConfig);
-extern boolean Port_ReadPin          (const Pin_ConfigType* PinConfig);
+extern void    Port_Init             (const Port_ConfigType* ConfigPtr);
+extern void    Port_ConfigurePin     (const Pin_ConfigType*  PinConfig);
+extern void    Port_TooglePin        (const Pin_ConfigType*  PinConfig);
+extern void    Port_SetPinState      (const Pin_ConfigType*  PinConfig,uint8_t State);
+extern boolean Port_GetPinState      (const Pin_ConfigType*  PinConfig);
 
 /*********************************************************************************************************************/
 #endif
