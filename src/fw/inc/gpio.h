@@ -77,6 +77,7 @@ typedef struct
 #define PORTF                           ((uint8_t)5u)
 #define PORTG                           ((uint8_t)6u)
 #define PORTH                           ((uint8_t)7u)
+#define PORTI                           ((uint8_t)8u)
 
 #define PIN0                           ((uint8_t)0u)
 #define PIN1                           ((uint8_t)1u)  /* Pin 1 selected    */
@@ -199,8 +200,8 @@ static GPIO_TypeDef* const GPIO_Base[9] = {
 };
 
 static const uint32_t RCC_GPIO_Clk_Enable[9] = {
-    0x00000001ul,
-    0x00000002ul,
+    0x00000001ul, /* ... 00000001*/
+    0x00000002ul, /* ... 00000010*/
     0x00000004ul,
     0x00000008ul,
     0x00000010ul,
@@ -211,8 +212,8 @@ static const uint32_t RCC_GPIO_Clk_Enable[9] = {
 };
 
 static const uint32_t GPIO_1Bit_control[16][2] = {
-    {0xFFFFFFFEul,0x00000001ul},
-    {0xFFFFFFFDul,0x00000002ul},
+    {0xFFFFFFFEul,0x00000001ul}, /* .... 1111 1110*/
+    {0xFFFFFFFDul,0x00000002ul}, /* .... 1111 1101*/
     {0xFFFFFFFBul,0x00000004ul},
     {0xFFFFFFF7ul,0x00000008ul},
     {0xFFFFFFEFul,0x00000010ul},
@@ -226,13 +227,13 @@ static const uint32_t GPIO_1Bit_control[16][2] = {
     {0xFFFFEFFFul,0x00001000ul},
     {0xFFFFDFFFul,0x00002000ul},
     {0xFFFFBFFFul,0x00004000ul},
-    {0xFFFF7FFFul,0x00008000ul}
+    {0xFFFF7FFFul,0x00008000ul} /* ....1111 0111 1111 1111 1111, .... 0000 1000 0000 0000 0000*/
 };
 
 static const uint32_t GPIO_2Bit_control[16][4] = 
 {
   /* reset,         output,      alternate,    analog*/
-    {0xFFFFFFFCul, 0x00000001ul, 0x00000002ul, 0x00000003ul},
+    {0xFFFFFFFCul, 0x00000001ul, 0x00000002ul, 0x00000003ul}, /* .... 1111 1100, .... 0000 0001, .... 0000 0010, .... 0000 0011*/
     {0xFFFFFFF3ul, 0x00000004ul, 0x00000008ul, 0x0000000Cul},
     {0xFFFFFFCFul, 0x00000010ul, 0x00000020ul, 0x00000030ul},
     {0xFFFFFF3Ful, 0x00000040ul, 0x00000080ul, 0x000000C0ul},
@@ -247,7 +248,7 @@ static const uint32_t GPIO_2Bit_control[16][4] =
     {0xFCFFFFFFul, 0x01000000ul, 0x02000000ul, 0x03000000ul},
     {0xF3FFFFFFul, 0x04000000ul, 0x08000000ul, 0x0C000000ul},
     {0xCFFFFFFFul, 0x10000000ul, 0x20000000ul, 0x30000000ul},
-    {0x3FFFFFFFul, 0x40000000ul, 0x80000000ul, 0xC0000000ul}
+    {0x3FFFFFFFul, 0x40000000ul, 0x80000000ul, 0xC0000000ul} /* 0011 1111 ... 1111, 0100 0000 ... 0000, 1000 ... 0000, 1100 ... 0000 */
 };
 
 static const uint32_t GPIO_4Bit_control[8][16] = {

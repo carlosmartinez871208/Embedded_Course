@@ -27,7 +27,6 @@
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "fw.h"
 #include "main.h"
 
 /*                                                        Types                                                      */
@@ -35,9 +34,6 @@
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
-#define GREEN_LED   ((Pin_ConfigType){.Port = PORTG,.Pin = PIN13,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
-#define RED_LED     ((Pin_ConfigType){.Port = PORTG,.Pin = PIN14,.Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
-#define PUSH_BUTTON ((Pin_ConfigType){.Port = PORTA,.Pin = PIN0, .Mode = INPUT, .OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
 
 /*                                                      Constants                                                    */
 /*********************************************************************************************************************/

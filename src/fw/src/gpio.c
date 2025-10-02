@@ -112,13 +112,25 @@ void Port_ConfigurePin     (const Pin_ConfigType* PinConfig)
         {
             if(pin < 8)
             {
+                /* GPIOx->afr[0] */
                 GPIOx->afrl = REG_MASKING(GPIOx->afrl, GPIO_4Bit_control[pin][0]); /* Clear alternate function bits */
-                GPIOx->afrl = REG_ENABLE_BITS(GPIOx->afrl, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+                if(AF0!=PinConfig->Alternate)
+                {
+                    GPIOx->afrl = REG_ENABLE_BITS(GPIOx->afrl, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+                }
+                else
+                {/* AF0, do nothing */}
             }
             else
             {
+                /* GPIOx->afr[1] */
                 GPIOx->afrh = REG_MASKING(GPIOx->afrh, GPIO_4Bit_control[pin][0]); /* Clear alternate function bits */
-                GPIOx->afrh = REG_ENABLE_BITS(GPIOx->afrh, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+                if(AF0!=PinConfig->Alternate)
+                {
+                    GPIOx->afrh = REG_ENABLE_BITS(GPIOx->afrh, GPIO_4Bit_control[pin][PinConfig->Alternate]); /* Set alternate function bits */
+                }
+                else
+                {/* AF0, do nothing */}
             }
         }
     }
