@@ -52,15 +52,20 @@
 
 /*                                         Imported functions implementation                                         */
 /*********************************************************************************************************************/
-void RCC_EnableGPIOA(void)
-{
-    RCC_TYPE->AHBENR |= RCC_AHBENR_GPIOA_ENABLE;
+void RCC_SetPortClockState(const uint8_t Port, const uint8_t State){
+    if(STD_ON == State){
+        RCC->AHBENR |= RCC_GPIO_Clk_Enable[Port];
+    }
+    else if(STD_OFF == State){
+        RCC->AHBENR &= ~RCC_GPIO_Clk_Enable[Port];
+    }
+    else{ /* Report error */}
 }
 
-void RCC_DisableGPIOA(void)
-{
-    RCC_TYPE->AHBENR &= ~RCC_AHBENR_GPIOA_ENABLE;
+boolean RCC_GetPortClockState(const uint8_t Port){
+    return REG_COMPARER(RCC->AHBENR & RCC_GPIO_Clk_Enable[Port]);
 }
+
 
 /***************************************************Project Logs*******************************************************
  *|    ID   |     Ticket    |     Date    |                               Description                                 |

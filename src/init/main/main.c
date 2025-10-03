@@ -56,12 +56,17 @@
 /*********************************************************************************************************************/
 int main (void)
 {
-    RCC_EnableGPIOA();
-    GPIO_config_pin();
+    Port_Init(&((Port_ConfigType){.PinConfigList = (Pin_ConfigType[]){GREEN_LED,PUSH_BUTTON},.NumberOfPins = 2}));
     while(TRUE)
     {
-        GPIO_toggle();
-        for(int i=0;i<1000000;i++);
+        if (Port_GetPinState(&PUSH_BUTTON))
+        {
+            Port_SetPinState(&GREEN_LED,STD_HIGH);
+        }
+        else
+        {
+            Port_SetPinState(&GREEN_LED,STD_LOW);
+        }
     }
     return EXIT_SUCCESS;
 }

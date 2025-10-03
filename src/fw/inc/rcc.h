@@ -25,8 +25,9 @@
 #define RCC_H_
 /*                                                 Standard libraries                                                */
 /*********************************************************************************************************************/
-#include "Data_Types.h"
+#include "Std_Types.h"
 #include "peripherals.h"
+#include "Register.h"
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
@@ -52,11 +53,17 @@ typedef struct
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
-#ifndef RCC_TYPE
-#define RCC_TYPE ((RCC_TypeDef*)RCC_BASE_ADDRESS)
+#ifndef RCC
+#define RCC ((RCC_TypeDef*)RCC_BASE_ADDRESS)
 #endif
 
-#define RCC_AHBENR_GPIOA_ENABLE (1U<<17)
+static const uint32_t RCC_GPIO_Clk_Enable[5] = {
+    0x00020000ul, /* 0000 0000 0000 0010 0000 0000 0000 0000 */
+    0x00040000ul, /* 0000 0000 0000 0100 0000 0000 0000 0000 */
+    0x00080000ul, /* 0000 0000 0000 1000 0000 0000 0000 0000 */
+    0x00100000ul, /* 0000 0000 0001 0000 0000 0000 0000 0000 */
+    0x00400000ul, /* 0000 0000 0100 0000 0000 0000 0000 0000 */
+};
 
 /*                                                 Exported Constants                                                */
 /*********************************************************************************************************************/
@@ -66,8 +73,8 @@ typedef struct
 
 /*                                            Exported functions prototypes                                          */
 /*********************************************************************************************************************/
-extern void RCC_EnableGPIOA(void);
-extern void RCC_DisableGPIOA(void);
+extern void    RCC_SetPortClockState    (const uint8_t Port, const uint8_t State);
+extern boolean RCC_GetPortClockState    (const uint8_t Port);
 
 /*********************************************************************************************************************/
 #endif

@@ -51,7 +51,7 @@
 #endif
 
 #ifndef REG_COMPARER
-#define REG_COMPARER(value)                                 ((!value)?FALSE:TRUE)
+#define REG_COMPARER(value)                                 (!(value)?(boolean)FALSE:(boolean)TRUE)
 #endif
 
 /*                                                 Exported Constants                                                */

@@ -35,6 +35,8 @@
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
+#define GREEN_LED   ((Pin_ConfigType){.Port = PORTA,.Pin = PIN5,  .Mode = OUTPUT,.OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
+#define PUSH_BUTTON ((Pin_ConfigType){.Port = PORTC,.Pin = PIN13, .Mode = INPUT, .OutputType = PUSH_PULL,.OutputSpeed = LOW_SPEED,.PullUpDown = NO_PULL,.Alternate = AF0})
 
 /*                                                 Exported Constants                                                */
 /*********************************************************************************************************************/
