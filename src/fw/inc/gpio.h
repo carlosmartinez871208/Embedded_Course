@@ -199,18 +199,6 @@ static GPIO_TypeDef* const GPIO_Base[9] = {
     (GPIO_TypeDef *) GPIOI_BASE_ADDRESS
 };
 
-static const uint32_t RCC_GPIO_Clk_Enable[9] = {
-    0x00000001ul, /* ... 00000001*/
-    0x00000002ul, /* ... 00000010*/
-    0x00000004ul,
-    0x00000008ul,
-    0x00000010ul,
-    0x00000020ul,
-    0x00000040ul,
-    0x00000080ul,
-    0x00000100ul,
-};
-
 static const uint32_t GPIO_1Bit_control[16][2] = {
     {0xFFFFFFFEul,0x00000001ul}, /* .... 1111 1110*/
     {0xFFFFFFFDul,0x00000002ul}, /* .... 1111 1101*/

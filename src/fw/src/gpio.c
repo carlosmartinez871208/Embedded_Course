@@ -157,14 +157,8 @@ void Port_ConfigurePin     (const Pin_ConfigType* PinConfig)
 {
     GPIO_TypeDef* GPIOx = GPIO_Base[PinConfig->Port];
     uint8_t pin = PinConfig->Pin;
-
-    /* Check if GPIO clock is enabled: */
-    if(!(RCC->ahb1enr & RCC_GPIO_Clk_Enable[PinConfig->Port])) {
-        /* GPIO clock is disabled, enable it: */
-        RCC->ahb1enr |= RCC_GPIO_Clk_Enable[PinConfig->Port];
-    }
-    else
-    {/* GPIO clock is enabled, do nothing */}
+    /* Enable clock for the corresponding GPIO port */
+    RCC_SetPortClockState(PinConfig->Port, STD_ON);
     /* Configure Pin Mode: */
     Port_SetPinMode(PinConfig);
     /* Configure Output Type: */

@@ -3,7 +3,8 @@
     "cortex-debug.JLinkGDBServerPath": "JLinkGDBServer",
     "files.associations": {
         "rcc.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "data_types.h": "c"
     },  
     "cortex-debug.variableUseNaturalFormat": false,
 }

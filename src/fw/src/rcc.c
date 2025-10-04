@@ -1,17 +1,17 @@
 /*********************************************************************************************************************/
-/*                                                  HEADER GROUP                                                     */
+/*                                                  SOURCE GROUP                                                     */
 /*********************************************************************************************************************/
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: template.h
+ * $File: template.c
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
  */
 /*********************************************************************************************************************/
 /* DESCRIPTION :                                                                                                     */
-/* template.h:
+/* template.c:
                Use this template for your source code files.
  */
 /*********************************************************************************************************************/
@@ -21,89 +21,54 @@
 /* not permitted without express written authority. Offenders will be liable                                         */
 /* for damages.                                                                                                      */
 /*********************************************************************************************************************/
-#ifndef RCC_H_
-#define RCC_H_
+
 /*                                                 Standard libraries                                                */
 /*********************************************************************************************************************/
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "Std_Types.h"
-#include "peripherals.h"
-#include "Register.h"
+#include "rcc.h"
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
-typedef struct
-{
-    __IO uint32_t cr;
-    __IO uint32_t pllcfgr;
-    __IO uint32_t cfgr;
-    __IO uint32_t cir;
-    __IO uint32_t ahb1rstr;
-    __IO uint32_t ahb2rstr;
-    __IO uint32_t ahb3rstr;
-    __IO uint32_t dummy0;
-    __IO uint32_t apb1rstr;
-    __IO uint32_t apb2rstr;
-    __IO uint32_t dummy1;
-    __IO uint32_t dummy2;
-    __IO uint32_t ahb1enr;
-    __IO uint32_t ahb2enr;
-    __IO uint32_t ahb3enr;
-    __IO uint32_t dummy3;
-    __IO uint32_t apb1enr;
-    __IO uint32_t apb2enr;
-    __IO uint32_t dummy4;
-    __IO uint32_t dummy5;
-    __IO uint32_t ahb1lpenr;
-    __IO uint32_t ahb2lpenr;
-    __IO uint32_t ahb3lpenr;
-    __IO uint32_t dummy6;
-    __IO uint32_t apb1lpenr;
-    __IO uint32_t apb2lpenr;
-    __IO uint32_t dummy7;
-    __IO uint32_t dummy8;
-    __IO uint32_t bdcr;
-    __IO uint32_t csr;
-    __IO uint32_t dummy9;
-    __IO uint32_t dumm10;
-    __IO uint32_t sscgr;
-    __IO uint32_t plli2scfgr;
-    __IO uint32_t pllsaicfgr;
-    __IO uint32_t dckcfgr;
-}RCC_TypeDef;
 
 /*                                                       Macros                                                      */
 /*********************************************************************************************************************/
-#define RCC                             ((RCC_TypeDef *) RCC_BASE_ADDRESS)
 
-/*                                                 Exported Constants                                                */
-/*********************************************************************************************************************/
-static const uint32_t RCC_GPIO_Clk_Enable[9] = {
-    0x00000001ul, /* ... 00000001*/
-    0x00000002ul, /* ... 00000010*/
-    0x00000004ul,
-    0x00000008ul,
-    0x00000010ul,
-    0x00000020ul,
-    0x00000040ul,
-    0x00000080ul,
-    0x00000100ul,
-};
-
-/*                                                 Exported Variables                                                */
+/*                                                      Constants                                                    */
 /*********************************************************************************************************************/
 
-/*                                            Exported functions prototypes                                          */
+/*                                                   Local Variables                                                 */
 /*********************************************************************************************************************/
-extern void    RCC_SetPortClockState    (const uint8_t Port, const uint8_t State);
-extern boolean RCC_GetPortClockState    (const uint8_t Port);
 
+/*                                                 Imported Variables                                                */
 /*********************************************************************************************************************/
-#endif
+
+/*                                             Local functions prototypes                                            */
+/*********************************************************************************************************************/
+
+/*                                           Local functions implementation                                          */
+/*********************************************************************************************************************/
+
+/*                                         Imported functions implementation                                         */
+/*********************************************************************************************************************/
+void RCC_SetPortClockState(const uint8_t Port, const uint8_t State){
+    if(STD_ON == State){
+        RCC->ahb1enr |= RCC_GPIO_Clk_Enable[Port];
+    }
+    else if(STD_OFF == State){
+        RCC->ahb1enr &= ~RCC_GPIO_Clk_Enable[Port];
+    }
+    else{ /* Report error */}
+}
+
+boolean RCC_GetPortClockState(const uint8_t Port){
+    return REG_COMPARER(RCC->ahb1enr & RCC_GPIO_Clk_Enable[Port]);
+}
+
+
 /***************************************************Project Logs*******************************************************
  *|    ID   |     Ticket    |     Date    |                               Description                                 |
  *|---------|---------------|-------------|---------------------------------------------------------------------------|
  *|         |               |             |                                                                           |
-**********************************************************************************************************************/ 
+**********************************************************************************************************************/
