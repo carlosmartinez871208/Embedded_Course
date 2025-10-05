@@ -4,7 +4,11 @@
     "files.associations": {
         "rcc.h": "c",
         "main.h": "c",
-        "data_types.h": "c"
+        "data_types.h": "c",
+        "fw.h": "c",
+        "interrupts.h": "c",
+        "gpio.h": "c",
+        "systick.h": "c"
     },  
     "cortex-debug.variableUseNaturalFormat": false,
 }

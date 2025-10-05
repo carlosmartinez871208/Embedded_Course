@@ -85,7 +85,7 @@ void UsageFault_Handler               (void)__attribute__((weak,alias("Default_H
 void SVCall_Handler                   (void)__attribute__((weak,alias("Default_Handler")));
 void DebugMonitor_Handler             (void)__attribute__((weak,alias("Default_Handler")));
 void PendSV_Handler                   (void)__attribute__((weak,alias("Default_Handler")));
-void Systick_Handler                  (void)__attribute__((weak,alias("Default_Handler")));
+void SysTick_Handler                  (void)__attribute__((weak,alias("Default_Handler")));
 
 /* Interrupst */
 void WWDOG_IRQHandler                 (void)__attribute__((weak,alias("Default_Handler")));
@@ -210,7 +210,7 @@ uint32_t vector_table[] __attribute__((section (".isr_vector_table"))) = {\
     (uint32_t) &DebugMonitor_Handler,
     0u,
     (uint32_t) &PendSV_Handler,
-    (uint32_t) &Systick_Handler,
+    (uint32_t) &SysTick_Handler,
     (uint32_t) &WWDOG_IRQHandler,/* Microcontroller interrupts. WWDOG address: 0x0000 0040*/
     (uint32_t) &EXTI_PVD_IRQHandler,
     (uint32_t) &EXTI_TAMP_STAMP_IRQHandler,

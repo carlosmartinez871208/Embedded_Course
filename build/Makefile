@@ -129,21 +129,21 @@ stats:
 	@echo ''
 
 ################################### Flashing and debugging section #######################################
-#$(BIN_PATH)/jflash: $(TARGET).bin
-#	@touch $@
-#	@echo Device $(DEVICE) > $@
-#	@echo si 1'\n'Speed 4000 >> $@
-#	@echo loadbin $< 0x08000000 >> $@
-#	@echo r'\n'g'\n'qc >> $@
+$(BIN_PATH)/jflash: $(TARGET).bin
+	@touch $@
+	@echo Device $(DEVICE) > $@
+	@echo si 1'\n'Speed 4000 >> $@
+	@echo loadbin $< 0x08000000 >> $@
+	@echo r'\n'g'\n'qc >> $@
 
-#flash: $(BIN_PATH)/jflash
-#	@echo "Flashing started ...!"
-#	JLinkExe -commanderscript $<
+flash: $(BIN_PATH)/jflash
+	@echo "Flashing started ...!"
+	JLinkExe -commanderscript $<
 
 ########################################## Flashing with ST-Link #########################################
-flash:
-	@echo "Flashing started ...!"
-	@sudo st-flash --reset write $(TARGET).bin 0x08000000
+#flash:
+#	@echo "Flashing started ...!"
+#	@sudo st-flash --reset write $(TARGET).bin 0x08000000
 
 # Use this if you are using JLink: make -j2 debug
 #debug: server client
