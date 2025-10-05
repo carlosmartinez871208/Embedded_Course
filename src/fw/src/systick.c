@@ -4,7 +4,7 @@
 /*                                               OBJECT SPECIFICATION                                                */
 /*********************************************************************************************************************/
 /*!
- * $File: main.c
+ * $File: template.c
  * $Revision: Version 1.0 $
  * $Author: Carlos Martinez $
  * $Date: 2025-08-03 $
@@ -27,9 +27,7 @@
 
 /*                                                   User libraries                                                  */
 /*********************************************************************************************************************/
-#include "main.h"
-#include "rcc.h"
-#include "gpio.h"
+#include "systick.h"
 
 /*                                                        Types                                                      */
 /*********************************************************************************************************************/
@@ -42,6 +40,8 @@
 
 /*                                                   Local Variables                                                 */
 /*********************************************************************************************************************/
+volatile static uint32_t current_tick   = 0ul;
+volatile static uint32_t current_tick_p = 0ul;
 
 /*                                                 Imported Variables                                                */
 /*********************************************************************************************************************/
@@ -54,17 +54,69 @@
 
 /*                                         Imported functions implementation                                         */
 /*********************************************************************************************************************/
-int main (void)
+
+void SysTick_Init(SysTick_ConfigType config)
 {
-    Port_Init(&((Port_ConfigType){.PinConfigList = (Pin_ConfigType[]){GREEN_LED,PUSH_BUTTON},.NumberOfPins = 2}));
-    SysTick_Init((SysTick_ConfigType){SYSTICK_ENABLE, SYSTICK_TICKINT_ENABLE, SYSTICK_PROCESSOR_CLOCK, SYSTICK_1_MS_TICKS});    
-    while(TRUE)
+    if (SYSTICK_ENABLE==config.Enable)
     {
-            Port_SetPinState(&GREEN_LED,STD_HIGH);
-            SysTick_Delay(1000);
-            Port_SetPinState(&GREEN_LED,STD_LOW);
+        __disable_irq();
+        /* Disable SysTick during setup */
+        SYSTICK->csr &= ~SYSTICK_RESET_VALUE;
+        /* Clear current value register */
+        SYSTICK->cvr = SYSTICK_RESET_VALUE;
+        /* Set reload register */
+        SYSTICK->rvr = (config.ReloadValue & SYSTICK_MAX_RELOAD);
+        /* Set clock source */
+        if (SYSTICK_PROCESSOR_CLOCK==config.ClkSource)
+        {
+            SYSTICK->csr |= SYSTICK_CSR_CLKSOURCE;
+        }
+        else
+        {
+            SYSTICK->csr &= ~SYSTICK_CSR_CLKSOURCE;
+        }
+        /* Enable or disable interrupt */
+        if (SYSTICK_TICKINT_ENABLE==config.TickInt)
+        {
+            SYSTICK->csr |= SYSTICK_CSR_TICKINT;
+        }
+        else
+        {
+            SYSTICK->csr &= ~SYSTICK_CSR_TICKINT;
+        }
+        /* Enable SysTick */
+        SYSTICK->csr |= SYSTICK_CSR_ENABLE;
+        __enable_irq();
     }
-    return EXIT_SUCCESS;
+    else
+    {/* Do nothing */}
+}
+
+void SysTick_Handler(void)
+{
+    /* Increment tick count */
+    current_tick+=1ul;
+}
+
+uint32_t SysTick_GetTick(void)
+{
+    __disable_irq();
+    current_tick_p = current_tick;
+    __enable_irq();
+    return current_tick_p;
+}
+
+void SysTick_Delay(uint32_t delay)
+{
+    unsigned int tickstart = SysTick_GetTick();
+    unsigned int wait = delay;
+    if(wait < SYSTICK_MAX_RELOAD)
+    {
+        wait += 1ul;
+    }
+    else
+    {/* Do nothing */}
+    while ((SysTick_GetTick() - tickstart) < wait){}
 }
 
 /***************************************************Project Logs*******************************************************
